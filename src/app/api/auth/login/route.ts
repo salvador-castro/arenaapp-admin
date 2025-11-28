@@ -45,13 +45,14 @@ export async function POST (req: NextRequest) {
     const db = getDb()
 
     const [rows] = await db.execute(
-      'SELECT id, nombre, email, password_hash, rol FROM usuarios WHERE email = ? LIMIT 1',
+      'SELECT id, nombre, apellido, email, password_hash, rol FROM usuarios WHERE email = ? LIMIT 1',
       [email]
     )
 
     const users = rows as Array<{
       id: number
       nombre: string
+      apellido: string
       email: string
       password_hash: string
       rol: string
@@ -94,6 +95,7 @@ export async function POST (req: NextRequest) {
         user: {
           id: user.id,
           nombre: user.nombre,
+          apellido: user.apellido,
           email: user.email,
           role: user.rol
         }
